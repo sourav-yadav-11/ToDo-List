@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo List Project</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="box">
+        <h1 id="heading"><%= getDate %></h1>
+    </div>
+
+    <div class="box">
+        <% for (var i=0; i<showItem.length; i++) { %>
+        <div class="item">
+            <input type="checkbox">
+            <p><%= showItem[i] %></p>
+        </div>
+        <% } %>
+
+        <form class="item" action="/" method="post">
+            <input type="text" name="newItem" placeholder="New Item" required>
+            <button type="submit">+</button>
+        </form>
+
+        
+
+    </div>
+
+</body>
+</html>
+
