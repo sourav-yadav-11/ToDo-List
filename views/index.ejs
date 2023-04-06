@@ -1,0 +1,23 @@
+<%- include("partials/header") %>
+
+<div class="box">
+    <h1 id="heading"><%= heading %></h1>
+</div>
+
+<div class="box">
+    <% item.forEach(element => { %>
+        <form action="/delete" method="post">
+            <div class="item">
+                <input type="checkbox" name="deleteItem" value="<%= element._id %>" onchange="this.form.submit()">
+                <p><%= element.name; %></p>
+            </div>
+        </form>     
+    <% }); %>
+
+    <form class="item" action="/" method="post">
+        <input type="text" name="newItem" placeholder="Enter New Item" required>
+        <button type="submit">+</button>
+    </form>
+</div>
+
+<%- include("partials/footer") %>

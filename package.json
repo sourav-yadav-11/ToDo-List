@@ -1,8 +1,8 @@
 {
-  "name": "todo-list",
+  "name": "todo-list-mongodb",
   "version": "1.0.0",
-  "description": "It is a Simple ToDoList project, to illustrate the working of EJS(JavaScrips Templating) using NodeJS with ExpressJS without connecting to the Database.",
-  "main": "app.js",
+  "description": "Previously made ToDo List Web App with MongoDB Database.",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +11,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "ejs": "^3.1.9",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3"
   }
 }

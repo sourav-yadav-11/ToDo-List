@@ -1,35 +1,58 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const date = require(__dirname+"/date.js");
+const mongoose = require("mongoose");
 
 const app = express();
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
-const Items = ["Gym","Eat", "Code", "Sleep"];
-const workItems = [];
 
-app.get("/", function(req,res){
-    const day = date.getDate();
-    res.render("list", {ListTitle: day, showItem: Items});
-});
+mongoose.connect("mongodb://127.0.0.1:27017/ToDoListDB", {useNewUrlParser: true});
+const itemsSchema = {
+    name: String
+};
+const Item = mongoose.model("Item", itemsSchema);
 
-
+app.get('/', function(req,res){
+    Item.find().then(function(FoundItems){
+        if(FoundItems.length === 0){
+            const item1 = new Item({
+                name: "Eat"
+            });
+            const item2 = new Item({
+                name: "Code"
+            });
+            const item3 = new Item({
+                name: "Sleep"
+            });  
+            const defaultItems = [item1, item2, item3];
+            Item.insertMany(defaultItems).then(function () {
+                    console.log("Successfully saved defult items to DB");
+                  })
+                  .catch(function (err) {
+                    console.log(err);
+                  });
+            res.redirect('/');
+        }
+        else{
+            res.render("index", {heading: "ToDo List Items", item: FoundItems});
+        }
+    });
+})
 app.post("/", function(req,res){
-    const Item = req.body.newItem;
-    if(req.body.list === "work"){
-        workItems.push(Item);
-        res.redirect("/work");
-    }else{
-        Items.push(Item);
-        res.redirect("/"); 
-    }
+    const itemName = req.body.newItem;
+    const item = new Item({
+        name: itemName
+    }).save();
+    res.redirect('/');
+})
+
+app.post('/delete', function(req,res){
+    console.log(req.body.deleteItem)
+    const checkedItem = req.body.deleteItem;
+    Item.findByIdAndRemove(checkedItem)
+    .exec();
+    res.redirect('/');
 });
 
-app.get("/work", function(req,res){
-    res.render("list", {ListTitle: "work", showItem: workItems});
-});
-
-
-
-app.listen(3000, ()=>console.log("Server Running on port:3000"));
+app.listen(3000, ()=>console.log("Server started on port:3000"));
