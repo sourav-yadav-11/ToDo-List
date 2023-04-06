@@ -5,7 +5,7 @@ html {
   font-family: 'helvetica neue';
 }
 
-h1 {
+h1, h3{
   color: #fff;
   padding: 10px;
 }
@@ -17,6 +17,15 @@ h1 {
   border-radius: 5px;
   box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
 }
+
+.box2 {
+  max-width: 230px;
+  margin: 0px auto;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+
 
 #heading {
   background-color: #A683E3;
@@ -93,4 +102,16 @@ footer {
   color: white;
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
+}
+
+.workList{
+  text-align: center;
+  min-height: 50px;
+  width: 100px;
+  border-color: transparent;
+  background-color: #A683E3;
+  color: #fff;
+  font-size: 30px;
+  padding-bottom: -1px;
+  border-width: 0;
 }
